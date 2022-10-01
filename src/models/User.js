@@ -7,7 +7,6 @@ const User = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     displayName: {
-      field: 'display_name',
       type: DataTypes.STRING,
       allowNull: false,
     },
