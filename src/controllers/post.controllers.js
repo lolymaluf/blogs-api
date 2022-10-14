@@ -19,16 +19,22 @@ const getPostById = async (req, res) => {
 };
 
 const changePost = async (req, res) => {
+  console.log('changepostid', req.params);
   const { id } = req.params;
   const { title, content } = req.body;
 
-  const post = await postService.changePost(id, title, content, req.user.userId);
+  const { status, message } = await postService.changePost(id, title, content, req.user.userId);
+  const getPost = await postService.getPostById(id);
+
+  if (status === 401) {
+    return res.status(status).json({ message });
+  }
 
   if (!title || !content) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
 
-  return res.status(200).json(post);
+  return res.status(200).json(getPost);
 };
 
 module.exports = { 

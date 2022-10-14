@@ -37,8 +37,8 @@ const getPostById = async (id) => {
 
 const changePost = async (id, title, content, userAuthor) => {
   const { userId } = await BlogPost.findOne({ where: { id } });
-  console.log('USER ID', userId);
-  console.log('USER AUTHOR', userAuthor);
+/*   console.log('USER ID', userId);
+  console.log('USER AUTHOR', userAuthor); */
 
   if (userId !== userAuthor) {
     return { status: 401, message: 'Unauthorized user' };
