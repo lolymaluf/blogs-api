@@ -9,4 +9,10 @@ const addUserController = async (req, res) => {
    return res.status(status).json({ message });
 };
 
-module.exports = { addUserController };
+const getAllUsersController = async (req, res) => {
+  const users = await userService.getAllUsersService();
+  // nao sei se tem que colocar parametro ainda
+  return res.status(200).json(users);
+};
+
+module.exports = { addUserController, getAllUsersController };

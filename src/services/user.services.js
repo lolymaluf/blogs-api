@@ -13,6 +13,15 @@ const insertNewUserService = async (body) => {
     return { status: 201, token };
 };
 
+const getAllUsersService = async () => {
+  const users = await User.findAll(
+    { attributes: { exclude: ['password'] } },
+    // para nao mostrar a senha publicamente
+  );
+  return users;
+};
+
 module.exports = {
     insertNewUserService,
+    getAllUsersService,
 };
