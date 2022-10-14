@@ -14,27 +14,3 @@ const webToken = (userId, userEmail, userName) => {
 };
 
 module.exports = { webToken };
-
-/* const jwt = require('jsonwebtoken');
-require('dotenv/config');
-
-const webToken = ({ id, displayName, email }) => {
-  const payload = {
-    id,
-    displayName,
-    email,
-  };
-
-  const jwtSecret = process.env.JWT_SECRET || 'xaBlau';
-
-  const jwtConfig = {
-    expiresIn: '1000min',
-    algorithm: 'HS256',
-  };
-
-  const token = jwt.sign(payload, jwtSecret, jwtConfig);
-
-  return token;
-};
-
-module.exports = { webToken }; */
