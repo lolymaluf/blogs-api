@@ -1,10 +1,7 @@
 const loginValidation = async (req, res, next) => {
-  const gotEmail = 'email' in req.body;
-  const gotPassword = 'password' in req.body;
-  const validEmail = req.body.email;
-  const validPassword = req.body.password;
+  const { email, password } = req.body;
 
-  if (!gotEmail || !gotPassword || !validEmail || !validPassword) {
+  if (!email || !password) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
 
