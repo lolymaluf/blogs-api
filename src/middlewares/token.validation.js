@@ -10,6 +10,7 @@ const tokenValidation = async (req, res, next) => {
   try {
     const decodedToken = checkToken(token);
     req.user = decodedToken.data;
+    // aqui eu renomeio o payload do token para user, assim posso buscar as info apenas com o user transferindo de middleware pra outro
 
     next();
 } catch (error) {
