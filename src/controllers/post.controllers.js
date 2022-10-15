@@ -1,17 +1,21 @@
 const postService = require('../services/post.services');
 
-/* const addNewPost = async (req, res) => {
+const addNewPost = async (req, res) => {
   const { title, content, categoryIds } = req.body;
-  const { id: userId } = req.user;
+  const { userId } = req.user;
+  
+  if (!title || !content || !categoryIds) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  const { status, message, newPost } = await postService
+  .addNewPost(title, content, categoryIds, userId);
 
-  const newPost = await postService.addNewPost(title, content, categoryIds, userId);
-
-  if (newPost.status) {
-    return res.status(newPost.status).json({ message: newPost.message });
+  if (status === 401) {
+    return res.status(status).json({ message });
   }
 
   return res.status(201).json(newPost);
-}; */
+};
 
 const getPosts = async (req, res) => {
   const post = await postService.getPosts();
@@ -62,10 +66,18 @@ const deletePost = async (req, res) => {
   return res.status(204).json();
 };
 
+/* const searchPosts = async (req, res) => {
+  const { q } = req.query;
+
+  const posts = await postService.searchItem(q);
+  return res.status(200).json(posts);
+}; */
+
 module.exports = { 
-  // addNewPost, 
+  addNewPost, 
   getPosts,
   getPostById,
   changePost,
   deletePost,
+  // searchPosts,
  };

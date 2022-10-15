@@ -4,9 +4,10 @@ const { tokenValidation } = require('../middlewares/token.validation');
 
 const router = express.Router();
 
-/* router.post('/', tokenValidation, postController.addNewPost); */
+router.post('/', tokenValidation, postController.addNewPost);
 router.get('/', tokenValidation, postController.getPosts);
 router.get('/:id', tokenValidation, postController.getPostById);
+// router.get('/search', tokenValidation, postController.searchPosts);
 router.put('/:id', tokenValidation, postController.changePost);
 router.delete('/:id', tokenValidation, postController.deletePost);
 

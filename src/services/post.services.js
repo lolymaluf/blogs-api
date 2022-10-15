@@ -1,10 +1,22 @@
-const { BlogPost, User, Category } = require('../models');  
+// const { Op } = require('sequelize');
+const { BlogPost, User, Category, PostCategory } = require('../models');
 
-/* const addNewPost = async (name) => {
-  ...
-  ...
-  ...
-}; */
+const addNewPost = async (title, content, categoryIds, userId) => {
+  const newPost = await BlogPost
+  .create({ title, content, userId, published: new Date(), updated: new Date() });
+  const getCategories = await Category.findAll();
+
+  const categories = getCategories.filter((category) => categoryIds.includes(category.id));
+  if (categories.length === 0) {
+    return { status: 400, message: '"categoryIds" not found"' };
+  }
+  
+  const mapCategories = categories.map((category) => PostCategory.create({
+    postId: newPost.id,
+    categoryId: category.id }));
+  await Promise.all(mapCategories);
+  return { status: 201, newPost };
+};
 
 const getPosts = async () => {
   const posts = await BlogPost.findAll({ include: [{
@@ -66,10 +78,33 @@ const deletePost = async (id, userAuthor) => {
   return { status: 204 };
 }; */
 
+/* const searchPosts = async (string) => {
+  const posts = await BlogPost.findAll({
+      where: {
+        [Op.or]: [{ title: { [Op.like]: `%${string}%` } }, 
+                   { content: { [Op.like]: `%${string}%` } },
+      ] },
+      include: [
+        { model: User,
+          as: 'user', 
+          attributes: { exclude: ['password'] },
+        },
+        {
+          model: Category,
+          as: 'categories',
+          through: { attributes: [] },
+        },
+      ],
+  });
+
+   return posts;
+}; */
+
 module.exports = {
-  // addNewPost,
+  addNewPost,
   getPosts,
   getPostById,
   changePost,
   deletePost,
+  // searchPosts,
 };
