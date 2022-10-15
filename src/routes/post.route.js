@@ -8,5 +8,6 @@ const router = express.Router();
 router.get('/', tokenValidation, postController.getPosts);
 router.get('/:id', tokenValidation, postController.getPostById);
 router.put('/:id', tokenValidation, postController.changePost);
+router.delete('/:id', tokenValidation, postController.deletePost);
 
 module.exports = router;
