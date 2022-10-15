@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post('/', userValidation, userController.addUserController);
 router.get('/', tokenValidation, userController.getAllUsersController);
+router.delete('/me', tokenValidation, userController.deleteMyUser);
 router.get('/:id', tokenValidation, userController.getUserById);
 
 module.exports = router;

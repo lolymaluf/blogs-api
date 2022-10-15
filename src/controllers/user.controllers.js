@@ -22,4 +22,15 @@ const getUserById = async (req, res) => {
   return res.status(200).json(user);
 };
 
-module.exports = { addUserController, getAllUsersController, getUserById };
+const deleteMyUser = async (req, res) => {
+  const token = req.headers.authorization;
+  if (!token) return res.status(404).json();
+  return res.status(204).json();
+};
+
+module.exports = { 
+  addUserController,
+  getAllUsersController,
+  getUserById,
+  deleteMyUser,
+};

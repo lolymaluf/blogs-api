@@ -1,9 +1,16 @@
 const postService = require('../services/post.services');
 
 /* const addNewPost = async (req, res) => {
-...
-...
-...
+  const { title, content, categoryIds } = req.body;
+  const { id: userId } = req.user;
+
+  const newPost = await postService.addNewPost(title, content, categoryIds, userId);
+
+  if (newPost.status) {
+    return res.status(newPost.status).json({ message: newPost.message });
+  }
+
+  return res.status(201).json(newPost);
 }; */
 
 const getPosts = async (req, res) => {
@@ -54,32 +61,6 @@ const deletePost = async (req, res) => {
 
   return res.status(204).json();
 };
-
-/* const deletePost = async (req, res) => {
-  const { id } = req.params;
-
-  const { status, message } = await postService.deletePost(id, req.user.userId);
-  const getPost = await postService.getPostById(id);
-
-  if (status === 401) {
-    return res.status(status).json({ message });
-  }
-
-  if (!id) {
-    return res.status(404).json({ message: 'Post does not exist' });
-  }
-
-  return res.status(204).json(getPost);
-}; */
-
-/* const deletePost = async (req, res) => {
-  const { id } = req.params;
-  const { status, message } = await postService.deletePost(id, req.user.userId);
-  if (status === 401) {
-    return res.status(status).json({ message });
-  }
-  return res.status(204).json();
-}; */
 
 module.exports = { 
   // addNewPost, 
