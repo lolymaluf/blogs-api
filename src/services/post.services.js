@@ -1,15 +1,18 @@
 // const { Op } = require('sequelize');
+
 const { BlogPost, User, Category, PostCategory } = require('../models');
 
 const addNewPost = async (title, content, categoryIds, userId) => {
+  const getCategories = await Category.findAll();
+  
+  const categories = getCategories.filter((category) => categoryIds.includes(category.id));
+  console.log('CATEGORIESSSSS', categories);
+  if (categories.length === 0) {
+    return { status: 400, message: '"categoryIds" not found' };
+  }
+
   const newPost = await BlogPost
   .create({ title, content, userId, published: new Date(), updated: new Date() });
-  const getCategories = await Category.findAll();
-
-  const categories = getCategories.filter((category) => categoryIds.includes(category.id));
-  if (categories.length === 0) {
-    return { status: 400, message: '"categoryIds" not found"' };
-  }
   
   const mapCategories = categories.map((category) => PostCategory.create({
     postId: newPost.id,

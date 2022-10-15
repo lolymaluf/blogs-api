@@ -10,7 +10,7 @@ const addNewPost = async (req, res) => {
   const { status, message, newPost } = await postService
   .addNewPost(title, content, categoryIds, userId);
 
-  if (status === 401) {
+  if (status === 400) {
     return res.status(status).json({ message });
   }
 
